@@ -82,7 +82,7 @@
 <meta name="description" content="What’s this?由于运行期绑定的特性，JavaScript 中的 this 含义非常多，它可以是全局对象、当前对象或者任意对象，这完全取决于函数的调用方式 随着函数使用场合的不同，this的值会发生变化。但是有一个总的原则，那就是this指的是，调用函数的那个对象 作为函数调用在函数被直接调用时this绑定到全局对象。在浏览器中，window 就是该全局对象 123456789consol">
 <meta property="og:type" content="article">
 <meta property="og:title" content="blackhu-Blog">
-<meta property="og:url" content="http://www.weiyijuan.com/2018/01/09/What's this">
+<meta property="og:url" content="http://www.weiyijuan.top/2018/01/09/What's this">
 <meta property="og:site_name" content="blackhu-Blog">
 <meta property="og:description" content="What’s this?由于运行期绑定的特性，JavaScript 中的 this 含义非常多，它可以是全局对象、当前对象或者任意对象，这完全取决于函数的调用方式 随着函数使用场合的不同，this的值会发生变化。但是有一个总的原则，那就是this指的是，调用函数的那个对象 作为函数调用在函数被直接调用时this绑定到全局对象。在浏览器中，window 就是该全局对象 123456789consol">
 <meta property="og:locale" content="zh-Hans">
@@ -119,7 +119,7 @@
 
 
 
-  <link rel="canonical" href="http://www.weiyijuan.com/2018/01/09/What's this"/>
+  <link rel="canonical" href="http://www.weiyijuan.top/2018/01/09/What's this"/>
 
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.weiyijuan.com/2018/01/09/What's this?/">
+    <link itemprop="mainEntityOfPage" href="http://www.weiyijuan.top/2018/01/09/What's this?/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="blackhu">
