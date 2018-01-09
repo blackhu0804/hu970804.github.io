@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.weiyijuan.top/2018/01/09/What's this?/">
+    <link itemprop="mainEntityOfPage" href="http://www.weiyijuan.top/2018/01/09/对跨域的解决方式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="blackhu">
@@ -251,7 +251,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/09/What's this?/" itemprop="url">未命名</a></h1>
+                <a class="post-title-link" href="/2018/01/09/对跨域的解决方式/" itemprop="url">对跨域的解决方式</a></h1>
         
 
         <div class="post-meta">
@@ -263,7 +263,189 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-09T22:32:47+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-09T22:39:46+08:00">
+                2018-01-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><img src="http://upload-images.jianshu.io/upload_images/3786979-981b31be385bb0e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>浏览器安全的基石是”同源政策”。所谓”同源”指的是”三个相同”。</p>
+<ul>
+<li>协议相同</li>
+<li>域名相同</li>
+<li>端口相同</li>
+</ul>
+<p>同源政策的目的，是为了保证用户信息的安全，防止恶意的网站窃取数据。虽然这些限制是必要的，但是有时很不方便，合理的用途也受到影响。所以引出跨域的几种解决方式。如有错误请指正。</p>
+<h2 id="首先对于ajax的请求不能发送："><a href="#首先对于ajax的请求不能发送：" class="headerlink" title="首先对于ajax的请求不能发送："></a>首先对于ajax的请求不能发送：</h2><ul>
+<li>JSONP</li>
+<li>CROS</li>
+</ul>
+<ol>
+<li>JSONP</li>
+</ol>
+<p>JSONP是服务器与客户端跨源通信的常用方法。最大特点就是简单适用，老式浏览器全部支持，服务器改造非常小。<br>它的基本思想是，网页通过添加一个<code>&lt;script&gt;</code>元素，向服务器请求JSON数据，这种做法不受同源政策限制；服务器收到请求后，将数据放在一个指定名字的回调函数里传回来。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">'.change'</span>).addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</span><br><span class="line">    script.src = <span class="string">'http://127.0.0.1:8080/getNews?callback=appendHtml'</span>;</span><br><span class="line">    <span class="comment">//向服务器http://127.0.0.1:8080发送请求，请求的查询字符串有一个callback参数，用来指定回调函数的名字</span></span><br><span class="line">    <span class="built_in">document</span>.head.appendChild(script);</span><br><span class="line">    <span class="comment">//服务器收到请求后，将数据放在回调函数的参数位置返回</span></span><br><span class="line">    <span class="built_in">document</span>.head.removeChild(script);</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">appendHtml</span>(<span class="params">news</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> html = <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">for</span>( <span class="keyword">var</span> i=<span class="number">0</span>; i&lt;news.length; i++)&#123;</span><br><span class="line">      html += <span class="string">'&lt;li&gt;'</span> + news[i] + <span class="string">'&lt;/li&gt;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(html);</span><br><span class="line">    $(<span class="string">'.news'</span>).innerHTML = html;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">$</span>(<span class="params">id</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">document</span>.querySelector(id);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码通过动态添加<code>&lt;script&gt;</code>元素，向服务器<a href="http://127.0.0.1:8080发出请求。注意，该请求的查询字符串有一个`callback`参数，用来指定回调函数的名字，这对于JSONP是必需的。" target="_blank" rel="noopener">http://127.0.0.1:8080发出请求。注意，该请求的查询字符串有一个`callback`参数，用来指定回调函数的名字，这对于JSONP是必需的。</a></p>
+<p>由于<code>&lt;script&gt;</code>元素请求的脚本，直接作为代码运行。这时，只要浏览器定义了appendHtml函数，该函数就会立即调用。作为参数的JSON数据被视为JavaScript对象，而不是字符串，因此避免了使用<code>JSON.parse</code>的步骤。</p>
+<p>服务器收到请求后，将数据传给回调函数返回<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">app.get(<span class="string">'/getNews'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> news = [</span><br><span class="line">		<span class="string">"第11日前瞻：中国冲击4金 博尔特再战200米羽球"</span>,</span><br><span class="line">		<span class="string">"正直播柴飚/洪炜出战 男双力争会师决赛"</span>,</span><br><span class="line">		<span class="string">"女排将死磕巴西！郎平安排男陪练模仿对方核心"</span>,</span><br><span class="line">		<span class="string">"没有中国选手和巨星的110米栏 我们还看吗？"</span>,</span><br><span class="line">		<span class="string">"中英上演奥运金牌大战"</span>,</span><br><span class="line">		<span class="string">"博彩赔率挺中国夺回第二纽约时报：中国因对手服禁药而丢失的奖牌最多"</span>,</span><br><span class="line">		<span class="string">"最“出柜”奥运？同性之爱闪耀里约"</span>,</span><br><span class="line">		<span class="string">"下跪拜谢与洪荒之力一样 都是真情流露"</span></span><br><span class="line">	]</span><br><span class="line">	<span class="keyword">var</span> data = [];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">3</span>; i++)&#123;</span><br><span class="line">		<span class="keyword">var</span> index = <span class="built_in">parseInt</span>(<span class="built_in">Math</span>.random()*news.length);</span><br><span class="line">		data.push(news[index]);</span><br><span class="line">		news.splice(index, <span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> cb = req.query.callback;</span><br><span class="line">	<span class="keyword">if</span>(cb)&#123;</span><br><span class="line">		res.send(cb + <span class="string">'('</span>+ <span class="built_in">JSON</span>.stringify(data) + <span class="string">')'</span>);</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		res.send(data);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>CORS</li>
+</ol>
+<p><code>CORS</code>是跨源资源分享（Cross-Origin Resource Sharing）的缩写。它是W3C标准，是跨源AJAX请求的根本解决方法。相比JSONP只能发<code>GET</code>请求，CORS允许任何类型的请求。CORS需要浏览器和服务器同时支持。目前，所有浏览器都支持该功能，IE浏览器不能低于IE10。</p>
+<p>浏览器将CORS请求分成两类：简单请求（simple request）和非简单请求（not-so-simple request）。<br>只要同时满足以下两大条件，就属于简单请求。</p>
+<pre><code>(1) 请求方法是以下三种方法之一：
+- HEAD
+- GET
+- POST
+（2）HTTP的头信息不超出以下几种字段：
+- Accept
+- Accept-Language
+- Content-Language
+- Last-Event-ID
+- Content-Type：只限于三个值application/x-www-form-urlencoded、multipart/form-data、text/plain
+</code></pre><p>凡是不同时满足上面两个条件，就属于非简单请求。<br>浏览器对这两种请求的处理，是不一样的。</p>
+<ul>
+<li>简单请求<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">xhr.open(<span class="string">'get'</span>, <span class="string">'http://b.hth:8080/getNews'</span>, <span class="literal">true</span>);</span><br><span class="line">xhr.send();</span><br><span class="line"><span class="comment">//xhr.open的传的url为绝对路径，也就是你要跨域访问的接口地址</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>服务器端：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">res.header(<span class="string">"Access-Control-Allow-Origin"</span>, <span class="string">"http://a.hth:8080"</span>); </span><br><span class="line"><span class="comment">//指定可以请求数据的域名为http://a.hth:8080</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3786979-db6427e1d52ac4f9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<ul>
+<li>非简单请求</li>
+</ul>
+<p>非简单请求是那种对服务器有特殊要求的请求，比如请求方法是<code>PUT</code>或<code>DELETE</code>，或者<code>Content-Type</code>字段的类型是<code>application/json</code>。</p>
+<p>非简单请求的CORS请求，会在正式通信之前，增加一次HTTP查询请求，称为”预检”请求（preflight）。</p>
+<p>浏览器先询问服务器，当前网页所在的域名是否在服务器的许可名单之中，以及可以使用哪些HTTP动词和头信息字段。只有得到肯定答复，浏览器才会发出正式的<code>XMLHttpRequest</code>请求，否则就报错。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> url = <span class="string">'http://api.alice.com/cors'</span>;</span><br><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">xhr.open(<span class="string">'PUT'</span>, url, <span class="literal">true</span>);</span><br><span class="line">xhr.setRequestHeader(<span class="string">'X-Custom-Header'</span>, <span class="string">'value'</span>);</span><br><span class="line">xhr.send();</span><br></pre></td></tr></table></figure>
+<p>上面代码中，HTTP请求的方法是<code>PUT</code>，并且发送一个自定义头信息<code>X-Custom-Header</code>。</p>
+<p>下面设置请求回应设置http的头部<code>Access-Control-Allow-Origin</code>为<code>*</code>,表示同意任意跨源请求。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">res.header(<span class="string">"Access-Control-Allow-Origin"</span>, <span class="string">"*"</span>);</span><br></pre></td></tr></table></figure></p>
+<h2 id="iframe"><a href="#iframe" class="headerlink" title="iframe"></a>iframe</h2><p>如果两个网页不同源，就无法拿到对方的DOM。典型的例子是<code>iframe</code>窗口和<code>window.open</code>方法打开的窗口，它们与父窗口无法通信。</p>
+<ul>
+<li>降域：<br>如果两个窗口一级域名相同，只是二级域名不同，那么设置上一节介绍的<code>document.domain</code>属性，就可以规避同源政策，拿到DOM。</li>
+<li>window.postMessage<br>HTML5为了解决这个问题，引入了一个全新的API：跨文档通信 API<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.frames[<span class="number">0</span>].postMessage(<span class="keyword">this</span>.value,<span class="string">'*'</span>);<span class="comment">//发送消息</span></span><br><span class="line"><span class="built_in">window</span>.parent.postMessage(<span class="keyword">this</span>.value, <span class="string">'*'</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>参考链接：</p>
+<ul>
+<li><a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="noopener">跨域资源共享 CORS 详解(阮一峰)</a></li>
+<li><a href="https://segmentfault.com/a/1190000000718840#articleHeader4" target="_blank" rel="noopener">详解js跨域问题</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2016/04/same-origin-policy.html" target="_blank" rel="noopener">浏览器同源政策及其规避方法</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.weiyijuan.top/2018/01/09/What-s-this/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="blackhu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="blackhu-Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/09/What-s-this/" itemprop="url">What's this?</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-09T22:38:54+08:00">
                 2018-01-09
               </time>
             
@@ -394,7 +576,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/09/Vim常见操作/" itemprop="url">未命名</a></h1>
+                <a class="post-title-link" href="/2018/01/09/Vim常见操作/" itemprop="url">Vim常见操作</a></h1>
         
 
         <div class="post-meta">
@@ -406,7 +588,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-09T22:32:24+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-09T22:37:59+08:00">
                 2018-01-09
               </time>
             
@@ -608,7 +790,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/09/HTML总结/" itemprop="url">未命名</a></h1>
+                <a class="post-title-link" href="/2018/01/09/HTML总结/" itemprop="url">HTML总结</a></h1>
         
 
         <div class="post-meta">
@@ -620,7 +802,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-09T22:31:53+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-09T22:37:32+08:00">
                 2018-01-09
               </time>
             
@@ -789,7 +971,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.weiyijuan.top/2018/01/09/Form表单/">
+    <link itemprop="mainEntityOfPage" href="http://www.weiyijuan.top/2018/01/09/From表单/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="blackhu">
@@ -808,7 +990,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/09/Form表单/" itemprop="url">未命名</a></h1>
+                <a class="post-title-link" href="/2018/01/09/From表单/" itemprop="url">From表单</a></h1>
         
 
         <div class="post-meta">
@@ -820,7 +1002,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-09T22:31:51+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-09T22:36:59+08:00">
                 2018-01-09
               </time>
             
@@ -877,406 +1059,6 @@ input常用标签：
 <li>get内容大小会受到限制， 特定浏览器和服务器会对url长度进行限制，例如IE对URL长度的限制是2083字节(2K+35)。对于其他浏览器，如Netscape、FireFox等，理论上没有长度限制，其限制取决于操作系统的支持；post传送数据量较大，但实际各个WEB服务器会规定对post提交数据大小进行限制，Apache、IIS6都有各自的配置。</li>
 <li>get常用于请求数据，post常用于向后台传数据。</li>
 <li>get安全性差，post安全性好。但get不会修改服务器的数据。<h4 id="3、在input里面，name有什么作用。"><a href="#3、在input里面，name有什么作用。" class="headerlink" title="3、在input里面，name有什么作用。"></a>3、在input里面，name有什么作用。</h4>  name是提交数据时的索引。<br>  当type=checkbox or radio时，name相同为一组。<h4 id="4、radio如何分组？"><a href="#4、radio如何分组？" class="headerlink" title="4、radio如何分组？"></a>4、radio如何分组？</h4>  input的name相同即为一组<h4 id="5、placeholder有什么作用？"><a href="#5、placeholder有什么作用？" class="headerlink" title="5、placeholder有什么作用？"></a>5、placeholder有什么作用？</h4>placeholder属性提供可描述输入字段预期值的提示信息（hint）。该提示会在输入字段为空时显示，并会在字段获得焦点时消失。适用于以下的 <input> 类型：text, search, url, telephone, email 以及 password。<h4 id="6、type-hidden的用法？"><a href="#6、type-hidden的用法？" class="headerlink" title="6、type=hidden的用法？"></a>6、type=hidden的用法？</h4>  将这个input隐藏起来，但这个input的值仍然能在提交表单的时候提交到后台。可用于验证提交的表单信息，提高安全性。</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.weiyijuan.top/2018/01/09/初见Flex/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="blackhu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="blackhu-Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/09/初见Flex/" itemprop="url">未命名</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-09T22:31:48+08:00">
-                2018-01-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="FLEX布局"><a href="#FLEX布局" class="headerlink" title="FLEX布局"></a>FLEX布局</h1><h2 id="一种新的布局方式，flex布局"><a href="#一种新的布局方式，flex布局" class="headerlink" title="一种新的布局方式，flex布局"></a>一种新的布局方式，flex布局</h2><ol>
-<li>flex布局与方向无关</li>
-<li>flex布局可以实现空间自动分配、自动对齐。</li>
-<li>flex适用于简单的线性布局。</li>
-</ol>
-<h3 id="flex-container"><a href="#flex-container" class="headerlink" title="flex container:"></a>flex container:</h3><table>
-<thead>
-<tr>
-<th>属性</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td>flex-direction</td>
-<td>方向</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>flex-wrap</td>
-<td>换行</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>flex-flow</td>
-<td>上面两个简写</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>justify-content</td>
-<td>主轴方向对齐方式 （center，space-between，space-around，flex-end，flex-start）</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>align-items</td>
-<td>侧轴对齐方式 （strech，flex-start，flex-end，center ）</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>align-content</td>
-<td>多行、列内容对齐方式</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p><a href="http://js.jirengu.com/bupod/4/edit" target="_blank" rel="noopener">flex container</a></p>
-<h3 id="flex-item"><a href="#flex-item" class="headerlink" title="flex item:"></a>flex item:</h3><table>
-<thead>
-<tr>
-<th>属性</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td>flex-grow</td>
-<td>增长比例</td>
-</tr>
-<tr>
-<td></td>
-<td>flex-shrink</td>
-<td>收缩比例</td>
-</tr>
-<tr>
-<td></td>
-<td>flex-basis</td>
-<td>默认大小</td>
-</tr>
-<tr>
-<td></td>
-<td>flex</td>
-<td>上面三个缩写</td>
-</tr>
-<tr>
-<td></td>
-<td>order</td>
-<td>顺序（代替双飞翼）</td>
-</tr>
-<tr>
-<td></td>
-<td>slign-self</td>
-<td>自身的对齐方式</td>
-</tr>
-</tbody>
-</table>
-<p><a href="http://js.jirengu.com/galun/2/edit" target="_blank" rel="noopener">flex item</a></p>
-<ol>
-<li><a href="http://js.jirengu.com/gozim/4/edit" target="_blank" rel="noopener">flex 实现手机布局</a></li>
-<li><a href="http://js.jirengu.com/gohad/1/edit" target="_blank" rel="noopener">产品列表</a></li>
-<li><a href="http://js.jirengu.com/nafir/3/edit" target="_blank" rel="noopener">pc页面布局</a></li>
-<li><a href="http://js.jirengu.com/xizub/2/edit" target="_blank" rel="noopener">完美居中</a></li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.weiyijuan.top/2018/01/09/对跨域的解决方式/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="blackhu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="blackhu-Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/09/对跨域的解决方式/" itemprop="url">未命名</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-09T22:31:47+08:00">
-                2018-01-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><img src="http://upload-images.jianshu.io/upload_images/3786979-981b31be385bb0e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<p>浏览器安全的基石是”同源政策”。所谓”同源”指的是”三个相同”。</p>
-<ul>
-<li>协议相同</li>
-<li>域名相同</li>
-<li>端口相同</li>
-</ul>
-<p>同源政策的目的，是为了保证用户信息的安全，防止恶意的网站窃取数据。虽然这些限制是必要的，但是有时很不方便，合理的用途也受到影响。所以引出跨域的几种解决方式。如有错误请指正。</p>
-<h2 id="首先对于ajax的请求不能发送："><a href="#首先对于ajax的请求不能发送：" class="headerlink" title="首先对于ajax的请求不能发送："></a>首先对于ajax的请求不能发送：</h2><ul>
-<li>JSONP</li>
-<li>CROS</li>
-</ul>
-<ol>
-<li>JSONP</li>
-</ol>
-<p>JSONP是服务器与客户端跨源通信的常用方法。最大特点就是简单适用，老式浏览器全部支持，服务器改造非常小。<br>它的基本思想是，网页通过添加一个<code>&lt;script&gt;</code>元素，向服务器请求JSON数据，这种做法不受同源政策限制；服务器收到请求后，将数据放在一个指定名字的回调函数里传回来。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">'.change'</span>).addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</span><br><span class="line">    script.src = <span class="string">'http://127.0.0.1:8080/getNews?callback=appendHtml'</span>;</span><br><span class="line">    <span class="comment">//向服务器http://127.0.0.1:8080发送请求，请求的查询字符串有一个callback参数，用来指定回调函数的名字</span></span><br><span class="line">    <span class="built_in">document</span>.head.appendChild(script);</span><br><span class="line">    <span class="comment">//服务器收到请求后，将数据放在回调函数的参数位置返回</span></span><br><span class="line">    <span class="built_in">document</span>.head.removeChild(script);</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">appendHtml</span>(<span class="params">news</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> html = <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">for</span>( <span class="keyword">var</span> i=<span class="number">0</span>; i&lt;news.length; i++)&#123;</span><br><span class="line">      html += <span class="string">'&lt;li&gt;'</span> + news[i] + <span class="string">'&lt;/li&gt;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(html);</span><br><span class="line">    $(<span class="string">'.news'</span>).innerHTML = html;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">$</span>(<span class="params">id</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">document</span>.querySelector(id);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p>上面代码通过动态添加<code>&lt;script&gt;</code>元素，向服务器<a href="http://127.0.0.1:8080发出请求。注意，该请求的查询字符串有一个`callback`参数，用来指定回调函数的名字，这对于JSONP是必需的。" target="_blank" rel="noopener">http://127.0.0.1:8080发出请求。注意，该请求的查询字符串有一个`callback`参数，用来指定回调函数的名字，这对于JSONP是必需的。</a></p>
-<p>由于<code>&lt;script&gt;</code>元素请求的脚本，直接作为代码运行。这时，只要浏览器定义了appendHtml函数，该函数就会立即调用。作为参数的JSON数据被视为JavaScript对象，而不是字符串，因此避免了使用<code>JSON.parse</code>的步骤。</p>
-<p>服务器收到请求后，将数据传给回调函数返回<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">app.get(<span class="string">'/getNews'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> news = [</span><br><span class="line">		<span class="string">"第11日前瞻：中国冲击4金 博尔特再战200米羽球"</span>,</span><br><span class="line">		<span class="string">"正直播柴飚/洪炜出战 男双力争会师决赛"</span>,</span><br><span class="line">		<span class="string">"女排将死磕巴西！郎平安排男陪练模仿对方核心"</span>,</span><br><span class="line">		<span class="string">"没有中国选手和巨星的110米栏 我们还看吗？"</span>,</span><br><span class="line">		<span class="string">"中英上演奥运金牌大战"</span>,</span><br><span class="line">		<span class="string">"博彩赔率挺中国夺回第二纽约时报：中国因对手服禁药而丢失的奖牌最多"</span>,</span><br><span class="line">		<span class="string">"最“出柜”奥运？同性之爱闪耀里约"</span>,</span><br><span class="line">		<span class="string">"下跪拜谢与洪荒之力一样 都是真情流露"</span></span><br><span class="line">	]</span><br><span class="line">	<span class="keyword">var</span> data = [];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">3</span>; i++)&#123;</span><br><span class="line">		<span class="keyword">var</span> index = <span class="built_in">parseInt</span>(<span class="built_in">Math</span>.random()*news.length);</span><br><span class="line">		data.push(news[index]);</span><br><span class="line">		news.splice(index, <span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> cb = req.query.callback;</span><br><span class="line">	<span class="keyword">if</span>(cb)&#123;</span><br><span class="line">		res.send(cb + <span class="string">'('</span>+ <span class="built_in">JSON</span>.stringify(data) + <span class="string">')'</span>);</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		res.send(data);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<ol>
-<li>CORS</li>
-</ol>
-<p><code>CORS</code>是跨源资源分享（Cross-Origin Resource Sharing）的缩写。它是W3C标准，是跨源AJAX请求的根本解决方法。相比JSONP只能发<code>GET</code>请求，CORS允许任何类型的请求。CORS需要浏览器和服务器同时支持。目前，所有浏览器都支持该功能，IE浏览器不能低于IE10。</p>
-<p>浏览器将CORS请求分成两类：简单请求（simple request）和非简单请求（not-so-simple request）。<br>只要同时满足以下两大条件，就属于简单请求。</p>
-<pre><code>(1) 请求方法是以下三种方法之一：
-- HEAD
-- GET
-- POST
-（2）HTTP的头信息不超出以下几种字段：
-- Accept
-- Accept-Language
-- Content-Language
-- Last-Event-ID
-- Content-Type：只限于三个值application/x-www-form-urlencoded、multipart/form-data、text/plain
-</code></pre><p>凡是不同时满足上面两个条件，就属于非简单请求。<br>浏览器对这两种请求的处理，是不一样的。</p>
-<ul>
-<li>简单请求<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">xhr.open(<span class="string">'get'</span>, <span class="string">'http://b.hth:8080/getNews'</span>, <span class="literal">true</span>);</span><br><span class="line">xhr.send();</span><br><span class="line"><span class="comment">//xhr.open的传的url为绝对路径，也就是你要跨域访问的接口地址</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>服务器端：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">res.header(<span class="string">"Access-Control-Allow-Origin"</span>, <span class="string">"http://a.hth:8080"</span>); </span><br><span class="line"><span class="comment">//指定可以请求数据的域名为http://a.hth:8080</span></span><br></pre></td></tr></table></figure></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/3786979-db6427e1d52ac4f9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<ul>
-<li>非简单请求</li>
-</ul>
-<p>非简单请求是那种对服务器有特殊要求的请求，比如请求方法是<code>PUT</code>或<code>DELETE</code>，或者<code>Content-Type</code>字段的类型是<code>application/json</code>。</p>
-<p>非简单请求的CORS请求，会在正式通信之前，增加一次HTTP查询请求，称为”预检”请求（preflight）。</p>
-<p>浏览器先询问服务器，当前网页所在的域名是否在服务器的许可名单之中，以及可以使用哪些HTTP动词和头信息字段。只有得到肯定答复，浏览器才会发出正式的<code>XMLHttpRequest</code>请求，否则就报错。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> url = <span class="string">'http://api.alice.com/cors'</span>;</span><br><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">xhr.open(<span class="string">'PUT'</span>, url, <span class="literal">true</span>);</span><br><span class="line">xhr.setRequestHeader(<span class="string">'X-Custom-Header'</span>, <span class="string">'value'</span>);</span><br><span class="line">xhr.send();</span><br></pre></td></tr></table></figure>
-<p>上面代码中，HTTP请求的方法是<code>PUT</code>，并且发送一个自定义头信息<code>X-Custom-Header</code>。</p>
-<p>下面设置请求回应设置http的头部<code>Access-Control-Allow-Origin</code>为<code>*</code>,表示同意任意跨源请求。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">res.header(<span class="string">"Access-Control-Allow-Origin"</span>, <span class="string">"*"</span>);</span><br></pre></td></tr></table></figure></p>
-<h2 id="iframe"><a href="#iframe" class="headerlink" title="iframe"></a>iframe</h2><p>如果两个网页不同源，就无法拿到对方的DOM。典型的例子是<code>iframe</code>窗口和<code>window.open</code>方法打开的窗口，它们与父窗口无法通信。</p>
-<ul>
-<li>降域：<br>如果两个窗口一级域名相同，只是二级域名不同，那么设置上一节介绍的<code>document.domain</code>属性，就可以规避同源政策，拿到DOM。</li>
-<li>window.postMessage<br>HTML5为了解决这个问题，引入了一个全新的API：跨文档通信 API<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.frames[<span class="number">0</span>].postMessage(<span class="keyword">this</span>.value,<span class="string">'*'</span>);<span class="comment">//发送消息</span></span><br><span class="line"><span class="built_in">window</span>.parent.postMessage(<span class="keyword">this</span>.value, <span class="string">'*'</span>);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>参考链接：</p>
-<ul>
-<li><a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="noopener">跨域资源共享 CORS 详解(阮一峰)</a></li>
-<li><a href="https://segmentfault.com/a/1190000000718840#articleHeader4" target="_blank" rel="noopener">详解js跨域问题</a></li>
-<li><a href="http://www.ruanyifeng.com/blog/2016/04/same-origin-policy.html" target="_blank" rel="noopener">浏览器同源政策及其规避方法</a></li>
 </ul>
 
           
@@ -1623,7 +1405,7 @@ input常用标签：
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
