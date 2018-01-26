@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="HTML、XML、XHTML 有什么区别 html即是超文本标记语言（Hyper Text Markup Language），是最早写网页的语言，但是由于时间早，规范不是很好，大小写混写且编码不规范；  xhtml即是升级版的html（Extensible Hyper Text Markup Language），对html进行了规范，编码更加严谨纯洁，也是一种过渡语言，html向xml过渡的语言；">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML总结">
+<meta property="og:url" content="http://www.blackhu.site/2018/01/09/HTML总结/index.html">
+<meta property="og:site_name" content="blackhu-Blog">
+<meta property="og:description" content="HTML、XML、XHTML 有什么区别 html即是超文本标记语言（Hyper Text Markup Language），是最早写网页的语言，但是由于时间早，规范不是很好，大小写混写且编码不规范；  xhtml即是升级版的html（Extensible Hyper Text Markup Language），对html进行了规范，编码更加严谨纯洁，也是一种过渡语言，html向xml过渡的语言；">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-09T14:37:36.673Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTML总结">
+<meta name="twitter:description" content="HTML、XML、XHTML 有什么区别 html即是超文本标记语言（Hyper Text Markup Language），是最早写网页的语言，但是由于时间早，规范不是很好，大小写混写且编码不规范；  xhtml即是升级版的html（Extensible Hyper Text Markup Language），对html进行了规范，编码更加严谨纯洁，也是一种过渡语言，html向xml过渡的语言；">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.blackhu.site/2018/01/09/HTML总结/"/>
+
+
+
+
+
+  <title>HTML总结 | blackhu-Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">blackhu-Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.blackhu.site/2018/01/09/HTML总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="blackhu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="blackhu-Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">HTML总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-09T22:37:32+08:00">
+                2018-01-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="HTML、XML、XHTML-有什么区别"><a href="#HTML、XML、XHTML-有什么区别" class="headerlink" title="HTML、XML、XHTML 有什么区别"></a>HTML、XML、XHTML 有什么区别</h2><ul>
+<li><p>html即是超文本标记语言（Hyper Text Markup Language），是最早写网页的语言，但是由于时间早，规范不是很好，大小写混写且编码不规范；</p>
+</li>
+<li><p>xhtml即是升级版的html（Extensible Hyper Text Markup Language），对html进行了规范，编码更加严谨纯洁，也是一种过渡语言，html向xml过渡的语言；</p>
+</li>
+<li><p>xml即时可扩展标记语言（Extensible Markup Language），是一种跨平台语言，编码更自由，可以自由创建标签。</p>
+</li>
+<li><p>网页编码从html&gt;&gt;xhtml&gt;&gt;xml这个过程发展。</p>
+</li>
+</ul>
+<p>1、xhtml对比与html，xhtml文档具有良好完整的排版，体现在两方面：a、元素必须要有结束标签；b、元素必须嵌套；<br>2、对于html的元素和属性，xhtml必须小写，因为xml是严格区分大小写的;<br>3、xhtml的属性值必须在引号之中；<br>4、xhtml不支持属性最小化，什么是属性最小化了？<br>　　正确:非最小化属性(unminimized attributes)<br>　　<input checked="checked"><br>　　不正确:最小化属性(minimized attributes)<br>　　<input checked><br>5、 在xhtml中，name属性是不赞成使用的，在以后的版本中将被删除。</p>
+<h3 id="再说说为什么网页编码要从html-gt-gt-xhtml-gt-gt-xml这么发展？"><a href="#再说说为什么网页编码要从html-gt-gt-xhtml-gt-gt-xml这么发展？" class="headerlink" title="再说说为什么网页编码要从html&gt;&gt;xhtml&gt;&gt;xml这么发展？"></a>再说说为什么网页编码要从html&gt;&gt;xhtml&gt;&gt;xml这么发展？</h3><p>话说早起的网页使用html语言编写的，但是它拥有三个严重的缺点：<br>1、编码不规范，结构混乱臃肿，需要智能的终端才能很好的显示；<br>2、表现和结构混乱，不利于开发和维护；<br>3、不能使用更多的网络设备，比如手机、PDA等；<br>因此HTML需要发展才能解决这个问题，于是W3C又制定了XHTML，XHTML是HTML向XML 过度的一个桥梁。而xml是web发展的趋势。</p>
+<h2 id="怎么理解html语义化"><a href="#怎么理解html语义化" class="headerlink" title="怎么理解html语义化"></a>怎么理解html语义化</h2><h4 id="HTML语义化是什么？"><a href="#HTML语义化是什么？" class="headerlink" title="HTML语义化是什么？"></a>HTML语义化是什么？</h4><p>语义化是指根据内容的结构化（内容语义化），选择合适的标签（代码语义化），便于开发者阅读和写出更优雅的代码的同时，让浏览器的爬虫和机器很好的解析。</p>
+<h4 id="为什么要语义化？"><a href="#为什么要语义化？" class="headerlink" title="为什么要语义化？"></a>为什么要语义化？</h4><p> 语义化的含义就是用正确的标签做正确的事情，html语义化就是让页面的内容结构化，便于对浏览器、搜索引擎解析；在没有样式CSS情况下也以一种文档格式显示，并且是容易阅读的。搜索引擎的爬虫依赖于标记来确定上下文和各个关键字的权重，利于 SEO（搜索引擎优化）。使阅读源代码的人对网站更容易将网站分块，便于阅读维护理解。</p>
+<h2 id="怎样理解内容与样式分离的原则"><a href="#怎样理解内容与样式分离的原则" class="headerlink" title="怎样理解内容与样式分离的原则"></a>怎样理解内容与样式分离的原则</h2><p>写HTML的时候先不管样式，重点放在HTML的结构和语义化上，让HTML能提现页面结构或者内容,，然后进行 css 样式设置，减少 HTML 与 CSS 契合度（即内容与样式分离） ，写JS的时候，尽量不要用JS去直接操作样式，而是通过给元素添加删除class来控制样式变化（即行为分离）。</p>
+<h4 id="分离原则优点"><a href="#分离原则优点" class="headerlink" title="分离原则优点"></a>分离原则优点</h4><ul>
+<li>浏览器加载网页页面速度变快。分离原则下，大部分页面代码写在了CSS当中，页面体积容量变得更小。</li>
+<li>网页修改设计时，效率、省时。根据html标签内ID或class的标记，到CSS里找到相应的ID或class，可以快速替换指定位置的样式，不会破坏页面架构和其他部分的样式。<br>典型的应用就是网页换肤，使用相同的 html 结构，不同的 css 样式。</li>
+<li>更好地被搜索引擎收录。基于内容与样式分离的原则，html的语义化就是首要考虑的,网页中语义化的标签代码就会更加适合搜索引擎。</li>
+<li>css样式的分离，它可以根据不同的浏览器，达到显示效果的统一。保证网页架构不变形的前提下，放心在不同浏览器渲染显示样式。</li>
+</ul>
+<h2 id="有哪些常见的meta标签"><a href="#有哪些常见的meta标签" class="headerlink" title="有哪些常见的meta标签"></a>有哪些常见的meta标签</h2><h3 id="元素"><a href="#元素" class="headerlink" title="元素"></a><meta>元素</h3><blockquote>
+<p>标签提供关于HTML文档的元数据。元数据不会显示在页面上，但是对于机器是可读的。它可用于浏览器（如何显示内容或重新加载页面），搜索引擎（关键词），或其他 web 服务。 —— W3School</p>
+</blockquote>
+<h3 id="必要属性"><a href="#必要属性" class="headerlink" title="必要属性"></a>必要属性</h3><table>
+<thead>
+<tr>
+<th>属性</th>
+<th style="text-align:center">值</th>
+<th style="text-align:right">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>content</td>
+<td style="text-align:center">some text</td>
+<td style="text-align:right">定义与http-equiv或name属性相关的元信息</td>
+</tr>
+</tbody>
+</table>
+<h3 id="可选属性"><a href="#可选属性" class="headerlink" title="可选属性"></a>可选属性</h3><table>
+<thead>
+<tr>
+<th>属性</th>
+<th style="text-align:center">值</th>
+<th style="text-align:right">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>http-equiv</td>
+<td style="text-align:center">content-type / expire / refresh / set-cookie</td>
+<td style="text-align:right">把content属性关联到HTTP头部。</td>
+</tr>
+<tr>
+<td>name</td>
+<td style="text-align:center">author / description / keywords / generator / revised / others</td>
+<td style="text-align:right">把 content 属性关联到一个名称。</td>
+</tr>
+<tr>
+<td>content</td>
+<td style="text-align:center">some text</td>
+<td style="text-align:right">定义用于翻译 content 属性值的格式。</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://segmentfault.com/a/1190000002407912" target="_blank" rel="noopener">常用meta整理</a></p>
+<h2 id="文档声明的作用-严格模式和混杂模式指什么-lt-doctype-html-gt-的作用"><a href="#文档声明的作用-严格模式和混杂模式指什么-lt-doctype-html-gt-的作用" class="headerlink" title="文档声明的作用?严格模式和混杂模式指什么?&lt;!doctype html&gt; 的作用?"></a>文档声明的作用?严格模式和混杂模式指什么?&lt;!doctype html&gt; 的作用?</h2><h3 id="文档声明的作用"><a href="#文档声明的作用" class="headerlink" title="文档声明的作用?"></a>文档声明的作用?</h3><p>告诉浏览器要用什么版本的html来解析网页。</p>
+<h3 id="严格模式和混杂模式指什么"><a href="#严格模式和混杂模式指什么" class="headerlink" title="严格模式和混杂模式指什么?"></a>严格模式和混杂模式指什么?</h3><ul>
+<li>严格模式：浏览器根据规范呈现页面。</li>
+<li>混杂模式：页面以一种比较宽松的向后兼容的方式显示。通常模拟老式浏览器的行为以防止老站点无法工作<h3 id="lt-doctype-html-gt-的作用"><a href="#lt-doctype-html-gt-的作用" class="headerlink" title="&lt;!doctype html&gt; 的作用?"></a>&lt;!doctype html&gt; 的作用?</h3></li>
+<li>DTD（document type definition，文档类型定义）是一系列的语法规则， 用来定义XML或(X)HTML的文件类型。浏览器会使用它来判断文档类型， 决定使用何种协议来解析，以及切换浏览器模式。</li>
+<li>DOCTYPE是用来声明文档类型和DTD规范的，一个主要的用途便是文件的合法性验证。 如果文件代码不合法，那么浏览器解析时便会出一些差错。</li>
+</ul>
+<h2 id="浏览器乱码的原因是什么？如何解决"><a href="#浏览器乱码的原因是什么？如何解决" class="headerlink" title="浏览器乱码的原因是什么？如何解决"></a>浏览器乱码的原因是什么？如何解决</h2><p>原因：造成html网页乱码原因主要是html源代码内中文字内容与html编码不同造成。<br>解决：1.HTML 文档一定要指定字符集为utf-8，因为这个字符集包括了世界上几乎所有的文字，没有理由不用它。<meta charset="utf-8"><br>2.编辑器保存文档使用的字符集一定要跟 HTML 文档指定的字符集匹配，也就是 utf-8</p>
+<h2 id="常见的浏览器有哪些，什么内核"><a href="#常见的浏览器有哪些，什么内核" class="headerlink" title="常见的浏览器有哪些，什么内核"></a>常见的浏览器有哪些，什么内核</h2><ul>
+<li>Trident(IE内核)</li>
+<li>Gecko(Firefox内核)</li>
+<li>Presto(Opera前内核) (已废弃)；Opera现已改用Google Chrome的Blink内核。</li>
+<li>Webkit(Safari内核,Chrome内核原型,开源)。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/09/From表单/" rel="next" title="From表单">
+                <i class="fa fa-chevron-left"></i> From表单
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/09/Vim常见操作/" rel="prev" title="Vim常见操作">
+                Vim常见操作 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">blackhu</p>
+              <p class="site-description motion-element" itemprop="description">这是blackhu的Blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/hu970804" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML、XML、XHTML-有什么区别"><span class="nav-number">1.</span> <span class="nav-text">HTML、XML、XHTML 有什么区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#再说说为什么网页编码要从html-gt-gt-xhtml-gt-gt-xml这么发展？"><span class="nav-number">1.1.</span> <span class="nav-text">再说说为什么网页编码要从html&gt;&gt;xhtml&gt;&gt;xml这么发展？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#怎么理解html语义化"><span class="nav-number">2.</span> <span class="nav-text">怎么理解html语义化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HTML语义化是什么？"><span class="nav-number">2.0.1.</span> <span class="nav-text">HTML语义化是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么要语义化？"><span class="nav-number">2.0.2.</span> <span class="nav-text">为什么要语义化？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#怎样理解内容与样式分离的原则"><span class="nav-number">3.</span> <span class="nav-text">怎样理解内容与样式分离的原则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#分离原则优点"><span class="nav-number">3.0.1.</span> <span class="nav-text">分离原则优点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有哪些常见的meta标签"><span class="nav-number">4.</span> <span class="nav-text">有哪些常见的meta标签</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#元素"><span class="nav-number">4.1.</span> <span class="nav-text">元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#必要属性"><span class="nav-number">4.2.</span> <span class="nav-text">必要属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可选属性"><span class="nav-number">4.3.</span> <span class="nav-text">可选属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文档声明的作用-严格模式和混杂模式指什么-lt-doctype-html-gt-的作用"><span class="nav-number">5.</span> <span class="nav-text">文档声明的作用?严格模式和混杂模式指什么?&lt;!doctype html&gt; 的作用?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文档声明的作用"><span class="nav-number">5.1.</span> <span class="nav-text">文档声明的作用?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#严格模式和混杂模式指什么"><span class="nav-number">5.2.</span> <span class="nav-text">严格模式和混杂模式指什么?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-doctype-html-gt-的作用"><span class="nav-number">5.3.</span> <span class="nav-text">&lt;!doctype html&gt; 的作用?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#浏览器乱码的原因是什么？如何解决"><span class="nav-number">6.</span> <span class="nav-text">浏览器乱码的原因是什么？如何解决</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见的浏览器有哪些，什么内核"><span class="nav-number">7.</span> <span class="nav-text">常见的浏览器有哪些，什么内核</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">blackhu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

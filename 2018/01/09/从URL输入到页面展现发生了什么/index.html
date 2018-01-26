@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="概述1、在浏览器输入输入url；2、域名解析，查找对应的ip地址；3、浏览器根据 IP 地址与服务器建立 socket 连接；4、浏览器与服务器通信： 浏览器请求，服务器处理请求；5、浏览器与服务器断开请求1、在浏览器输入urlurl：统一资源定位器，用于定位互联网上的资源。 2、域名解析查找对应的ip地址概念解释 ip地址：IP协议为互联网上的每一个网络和每一台主机分配一个逻辑地址。IP地址如同">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从URL输入到页面展现发生了什么">
+<meta property="og:url" content="http://www.blackhu.site/2018/01/09/从URL输入到页面展现发生了什么/index.html">
+<meta property="og:site_name" content="blackhu-Blog">
+<meta property="og:description" content="概述1、在浏览器输入输入url；2、域名解析，查找对应的ip地址；3、浏览器根据 IP 地址与服务器建立 socket 连接；4、浏览器与服务器通信： 浏览器请求，服务器处理请求；5、浏览器与服务器断开请求1、在浏览器输入urlurl：统一资源定位器，用于定位互联网上的资源。 2、域名解析查找对应的ip地址概念解释 ip地址：IP协议为互联网上的每一个网络和每一台主机分配一个逻辑地址。IP地址如同">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3786979-4ff9214b7e097db3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-01-09T12:49:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从URL输入到页面展现发生了什么">
+<meta name="twitter:description" content="概述1、在浏览器输入输入url；2、域名解析，查找对应的ip地址；3、浏览器根据 IP 地址与服务器建立 socket 连接；4、浏览器与服务器通信： 浏览器请求，服务器处理请求；5、浏览器与服务器断开请求1、在浏览器输入urlurl：统一资源定位器，用于定位互联网上的资源。 2、域名解析查找对应的ip地址概念解释 ip地址：IP协议为互联网上的每一个网络和每一台主机分配一个逻辑地址。IP地址如同">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/3786979-4ff9214b7e097db3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.blackhu.site/2018/01/09/从URL输入到页面展现发生了什么/"/>
+
+
+
+
+
+  <title>从URL输入到页面展现发生了什么 | blackhu-Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">blackhu-Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.blackhu.site/2018/01/09/从URL输入到页面展现发生了什么/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="blackhu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="blackhu-Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">从URL输入到页面展现发生了什么</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-09T20:49:13+08:00">
+                2018-01-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h6 id="1、在浏览器输入输入url；"><a href="#1、在浏览器输入输入url；" class="headerlink" title="1、在浏览器输入输入url；"></a>1、在浏览器输入输入url；</h6><h6 id="2、域名解析，查找对应的ip地址；"><a href="#2、域名解析，查找对应的ip地址；" class="headerlink" title="2、域名解析，查找对应的ip地址；"></a>2、域名解析，查找对应的ip地址；</h6><h6 id="3、浏览器根据-IP-地址与服务器建立-socket-连接；"><a href="#3、浏览器根据-IP-地址与服务器建立-socket-连接；" class="headerlink" title="3、浏览器根据 IP 地址与服务器建立 socket 连接；"></a>3、浏览器根据 IP 地址与服务器建立 socket 连接；</h6><h6 id="4、浏览器与服务器通信：-浏览器请求，服务器处理请求；"><a href="#4、浏览器与服务器通信：-浏览器请求，服务器处理请求；" class="headerlink" title="4、浏览器与服务器通信： 浏览器请求，服务器处理请求；"></a>4、浏览器与服务器通信： 浏览器请求，服务器处理请求；</h6><h6 id="5、浏览器与服务器断开请求"><a href="#5、浏览器与服务器断开请求" class="headerlink" title="5、浏览器与服务器断开请求"></a>5、浏览器与服务器断开请求</h6><h2 id="1、在浏览器输入url"><a href="#1、在浏览器输入url" class="headerlink" title="1、在浏览器输入url"></a>1、在浏览器输入url</h2><p>url：统一资源定位器，用于定位互联网上的资源。</p>
+<h2 id="2、域名解析查找对应的ip地址"><a href="#2、域名解析查找对应的ip地址" class="headerlink" title="2、域名解析查找对应的ip地址"></a>2、域名解析查找对应的ip地址</h2><h6 id="概念解释"><a href="#概念解释" class="headerlink" title="概念解释"></a>概念解释</h6><ul>
+<li>ip地址：IP协议为互联网上的每一个网络和每一台主机分配一个逻辑地址。IP地址如同门牌号码，通过IP地址来确定每一台主机的位置。服务器本质也就是一台主机，访问服务器也必须要知道其所对应的IP地址。</li>
+<li>域名（DN）：全称网域名称，是由一串用点分割的名字组成的internet上某一台计算机和计算机组的名称，用在数据传输时标识计算机的电子方位。因为IP地址难记忆且不易输入，所以用域名来代替纯数字的IP地址。</li>
+<li>网域名称系统（DNS）：是因特网的一项核心服务，它作为可以将  域名和IP地址相互映射的一个分布式数据库。DNS的作用就是把域名解析为相对应的IP地址。</li>
+</ul>
+<h6 id="域名解析流程"><a href="#域名解析流程" class="headerlink" title="域名解析流程"></a>域名解析流程</h6><p>1、浏览器缓存，浏览器会缓存DNS记录一段时间；<br>2、系统缓存，从hosts文件中查找是否有该域名所对应的IP；<br>3、前两个过程无法解析时，就要用到我们网络配置中的”DNS服务器地址”了。操作系统会把这个域名发送给这个LDNS，也就是本地区的域名服务器。大约80%的域名解析到这里就结束了，所以LDNS主要承担了域名的解析工作。<br>4、如果都没有找到，则向根域名服务器查找域名对应 IP，根域名服务器把请求转发到下一级。Name Server域名服务器会查询存储的域名和IP的映射关系表，在正常情况下都根据域名得到目标IP地址，连同一个TTL值返回给DNS Server域名服务器，返回该域名对应的IP和TTL值，LDNS会缓存这个域名和IP的对应关系。把解析的结果返回给用户，用户根据TTL值缓存在本地系统缓存中，域名解析过程结束。</p>
+<h2 id="建立连接"><a href="#建立连接" class="headerlink" title="建立连接"></a>建立连接</h2><p>知道了服务器的 IP 地址，下面便开始与服务器建立连接了。<br>TCP协议的三次握手：</p>
+<ul>
+<li>主机向服务器发送一个建立连接的请求（您好，我想认识您）；</li>
+<li>服务器接到请求后发送同意连接的信号（好的，很高兴认识您）；</li>
+<li>主机接到同意连接的信号后，再次向服务器发送了确认信号（我也很高兴认识您），自此，主机与服务器两者建立了连接。</li>
+</ul>
+<blockquote>
+<p>TCP 协议：三次握手的过程采用 TCP 协议，其可以保证信息传输的可靠性，三次握手过程中，若一方收不到确认信号，协议会要求<br>重新发送信号。</p>
+</blockquote>
+<h2 id="网页的请求与显示"><a href="#网页的请求与显示" class="headerlink" title="网页的请求与显示"></a>网页的请求与显示</h2><p><img src="http://upload-images.jianshu.io/upload_images/3786979-4ff9214b7e097db3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="MVC 模型(model)-视图(view)-控制器(controller).png"></p>
+<p>1、浏览器根据url生成http请求给到控制器；<br>2、从模型查找匹配控制器发来的请求返回给控制器得到数据。<br>3、控制器发送数据给视图，视图将数据组合成html文件反馈给控制器。<br>4、控制器将html文件发送给浏览器，在浏览器没有完全接受html网页前渲染、显示网页。</p>
+<h2 id="浏览器与服务器断开链接-四次挥手"><a href="#浏览器与服务器断开链接-四次挥手" class="headerlink" title="浏览器与服务器断开链接-四次挥手"></a>浏览器与服务器断开链接-四次挥手</h2><p>1、主机向服务器发送一个断开连接的请求（不早了，我该走了）；<br>2、服务器接到请求后发送确认收到请求的信号（知道了）；<br>3、服务器向主机发送断开通知（我也该走了）；<br>4、主机接到断开通知后断开连接并反馈一个确认信号（嗯，好的），服务器收到确认信号后断开连接；</p>
+<blockquote>
+<p>补充：</p>
+<ul>
+<li>为什么服务器在接到断开请求时不立即同意断开：当服务器收到断开连接的请求时，可能仍然有数据未发送完毕，所以服务器先发送确认信号，等所有数据发送完毕后再同意断开。</li>
+<li>第四次握手后，主机发送确认信号后并没有立即断开连接，而是等待了 2 个报文传送周期，原因是：如果第四次握手的确认信息丢失，服务器将会重新发送第三次握手的断开连接的信号，而服务器发觉丢包与重新发送的断开连接到达主机的时间正好为 2 个报文传输周期。</li>
+</ul>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/09/hello-world/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/09/From表单/" rel="prev" title="From表单">
+                From表单 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">blackhu</p>
+              <p class="site-description motion-element" itemprop="description">这是blackhu的Blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/hu970804" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1、在浏览器输入输入url；"><span class="nav-number">1.0.0.0.0.1.</span> <span class="nav-text">1、在浏览器输入输入url；</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2、域名解析，查找对应的ip地址；"><span class="nav-number">1.0.0.0.0.2.</span> <span class="nav-text">2、域名解析，查找对应的ip地址；</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3、浏览器根据-IP-地址与服务器建立-socket-连接；"><span class="nav-number">1.0.0.0.0.3.</span> <span class="nav-text">3、浏览器根据 IP 地址与服务器建立 socket 连接；</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4、浏览器与服务器通信：-浏览器请求，服务器处理请求；"><span class="nav-number">1.0.0.0.0.4.</span> <span class="nav-text">4、浏览器与服务器通信： 浏览器请求，服务器处理请求；</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#5、浏览器与服务器断开请求"><span class="nav-number">1.0.0.0.0.5.</span> <span class="nav-text">5、浏览器与服务器断开请求</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1、在浏览器输入url"><span class="nav-number">1.1.</span> <span class="nav-text">1、在浏览器输入url</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、域名解析查找对应的ip地址"><span class="nav-number">1.2.</span> <span class="nav-text">2、域名解析查找对应的ip地址</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#概念解释"><span class="nav-number">1.2.0.0.0.1.</span> <span class="nav-text">概念解释</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#域名解析流程"><span class="nav-number">1.2.0.0.0.2.</span> <span class="nav-text">域名解析流程</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建立连接"><span class="nav-number">1.3.</span> <span class="nav-text">建立连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网页的请求与显示"><span class="nav-number">1.4.</span> <span class="nav-text">网页的请求与显示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#浏览器与服务器断开链接-四次挥手"><span class="nav-number">1.5.</span> <span class="nav-text">浏览器与服务器断开链接-四次挥手</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">blackhu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
