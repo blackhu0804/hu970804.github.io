@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next mist use-motion" lang="zh-Hans">
+<html class="theme-next gemini use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -96,9 +96,9 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Mist',
+    scheme: 'Gemini',
     version: '5.1.4',
-    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -143,7 +143,7 @@
     
   
 
-  <div class="container sidebar-position-right 
+  <div class="container sidebar-position-left 
   page-home">
     <div class="headband"></div>
 
@@ -303,73 +303,17 @@
       
         
           
-            <p>在JavaScript中，ES6之前不存在class，所以JavaScript的继承是基于原型链实现的。每一个实例的 <code>__proto__</code> 都指向自己构造函数的<code>prototype</code> 属性。MDN上这样解释：</p>
-<blockquote>
-<p>当谈到继承时，JavaScript只有一种结构：对象。每个对象都有一个私有属性（称之为 [[Prototype]]），它持有一个连接到另一个称为其 prototype 对象（原型对象）的链接。该 prototype 对象又具有一个自己的原型，层层向上直到一个对象的原型为 <code>null</code>。</p>
-</blockquote>
-<h2 id="构造函数与实例"><a href="#构造函数与实例" class="headerlink" title="构造函数与实例"></a>构造函数与实例</h2><pre><code>function Person() {
+          在JavaScript中，ES6之前不存在class，所以JavaScript的继承是基于原型链实现的。每一个实例的 __proto__ 都指向自己构造函数的prototype 属性。MDN上这样解释：
 
-}
-
-let person = new Person();
-person.__proto__ == Person.prototype; // true
-Person.__proto__.constructor == Person; // true;
-</code></pre><p>在上面代码中，Person为构造函数，person 为构造函数的一个实例对象，person.<strong>prpto</strong> 指向了Person.prototype 属性。</p>
-<p>当读取实例属性的时候，如果找不到，就会查找原型中的属性(即<code>person.__proto__</code> )，也就是在<code>Person.prototype</code>中去查找。如果还找不到就去查找原型的原型(即<code>Person.prototype.__proto__</code>),而它又是什么呢？因为原型也是一个对象，<code>typeof(Person.prototype) == Object</code>,所以<code>Person.prototype.__proto__ == Object.prototype</code>,如果此时还找不到，则去查找<code>Object.prototype.__proto__</code>,最终返回<code>null</code>。举个栗子：</p>
-<pre><code>function Person() {
-
-}
-let person = new Person();
-person.name = &apos;black&apos;;
-console.log(person.name); //1. black
-
-// 此时删除person.name
-delete person.name;
-Person.prototype.name = &apos;古月&apos;;
-console.log(person.name); // 2.古月
-
-// 此时删除Person.prototype.name
-delete Person.prototype.name;
-console.log(person.name); // 3.undefined
-</code></pre><ol>
-<li>当<code>person.name</code>有值时，首先查找<code>person.name</code> ,查找成功。</li>
-<li>当<code>person.name</code> 查找不到时，查找<code>person.__proto__.name</code>,也就是查找<code>Person.prototype.name</code>,查找成功。</li>
-<li>当<code>person.name</code> 查找不到时，查找<code>person.__proto__.name</code>,也就是查找<code>Person.prototype.name</code>, 查找不到时，查找<code>Person.prototype.__proto__</code>,继续向上查找，查找到<code>Object.prototype.name</code>,查找失败，返回<code>undefined</code>；</li>
-</ol>
-<h2 id="通过原型模拟new的实现"><a href="#通过原型模拟new的实现" class="headerlink" title="通过原型模拟new的实现"></a>通过原型模拟new的实现</h2><p><code>new</code>作用：</p>
-<blockquote>
-<p><code>new</code> 运算符创建一个自定义对象或具有构造函数的内置对象的实例。</p>
-</blockquote>
-<pre><code>function Person(name) {
-  this.name = name;
-}
-
-Person.prototype.sayHi = function() {
-  console.log(`hi, I am ${this.name}`);
-}
-
-function _new(fn) {
-  var obj = {}
-  obj.__proto__ = fn.prototype;   
-  fn.apply(obj, [].slice.call(arguments, 1));
-  return obj;
-}
-
-let test = _new(Person, &apos;black&apos;)
-console.log(test.name);
-test.sayHi();
-
-let test2 = new Person(&apos;black&apos;)
-console.log(test2.name);
-test2.sayHi();
-</code></pre><ol>
-<li>新建一个对象<code>obj</code></li>
-<li>将<code>obj</code>的原型指向构造函数</li>
-<li>使用<code>apply</code>，改变构造函数<code>this</code>的指向到<code>obj</code>。</li>
-<li>返回<code>obj</code></li>
-</ol>
-
-          
+当谈到继承时，JavaScript只有一种结构：对象。每个对象都有一个私有属性（称之为 [[Prototype]]），它持有一个连接到另一个称为其 prototype 对象（原型对象）的链接。该
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/01/26/浅析JavaScript中的原型链与继承/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -487,71 +431,30 @@ test2.sayHi();
       
         
           
-            <p><img src="http://upload-images.jianshu.io/upload_images/3786979-981b31be385bb0e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<p>浏览器安全的基石是”同源政策”。所谓”同源”指的是”三个相同”。</p>
-<ul>
-<li>协议相同</li>
-<li>域名相同</li>
-<li>端口相同</li>
-</ul>
-<p>同源政策的目的，是为了保证用户信息的安全，防止恶意的网站窃取数据。虽然这些限制是必要的，但是有时很不方便，合理的用途也受到影响。所以引出跨域的几种解决方式。如有错误请指正。</p>
-<h2 id="首先对于ajax的请求不能发送："><a href="#首先对于ajax的请求不能发送：" class="headerlink" title="首先对于ajax的请求不能发送："></a>首先对于ajax的请求不能发送：</h2><ul>
-<li>JSONP</li>
-<li>CROS</li>
-</ul>
-<ol>
-<li>JSONP</li>
-</ol>
-<p>JSONP是服务器与客户端跨源通信的常用方法。最大特点就是简单适用，老式浏览器全部支持，服务器改造非常小。<br>它的基本思想是，网页通过添加一个<code>&lt;script&gt;</code>元素，向服务器请求JSON数据，这种做法不受同源政策限制；服务器收到请求后，将数据放在一个指定名字的回调函数里传回来。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">'.change'</span>).addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</span><br><span class="line">    script.src = <span class="string">'http://127.0.0.1:8080/getNews?callback=appendHtml'</span>;</span><br><span class="line">    <span class="comment">//向服务器http://127.0.0.1:8080发送请求，请求的查询字符串有一个callback参数，用来指定回调函数的名字</span></span><br><span class="line">    <span class="built_in">document</span>.head.appendChild(script);</span><br><span class="line">    <span class="comment">//服务器收到请求后，将数据放在回调函数的参数位置返回</span></span><br><span class="line">    <span class="built_in">document</span>.head.removeChild(script);</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">appendHtml</span>(<span class="params">news</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> html = <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">for</span>( <span class="keyword">var</span> i=<span class="number">0</span>; i&lt;news.length; i++)&#123;</span><br><span class="line">      html += <span class="string">'&lt;li&gt;'</span> + news[i] + <span class="string">'&lt;/li&gt;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(html);</span><br><span class="line">    $(<span class="string">'.news'</span>).innerHTML = html;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">$</span>(<span class="params">id</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">document</span>.querySelector(id);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p>上面代码通过动态添加<code>&lt;script&gt;</code>元素，向服务器<a href="http://127.0.0.1:8080发出请求。注意，该请求的查询字符串有一个`callback`参数，用来指定回调函数的名字，这对于JSONP是必需的。" target="_blank" rel="noopener">http://127.0.0.1:8080发出请求。注意，该请求的查询字符串有一个`callback`参数，用来指定回调函数的名字，这对于JSONP是必需的。</a></p>
-<p>由于<code>&lt;script&gt;</code>元素请求的脚本，直接作为代码运行。这时，只要浏览器定义了appendHtml函数，该函数就会立即调用。作为参数的JSON数据被视为JavaScript对象，而不是字符串，因此避免了使用<code>JSON.parse</code>的步骤。</p>
-<p>服务器收到请求后，将数据传给回调函数返回<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">app.get(<span class="string">'/getNews'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> news = [</span><br><span class="line">		<span class="string">"第11日前瞻：中国冲击4金 博尔特再战200米羽球"</span>,</span><br><span class="line">		<span class="string">"正直播柴飚/洪炜出战 男双力争会师决赛"</span>,</span><br><span class="line">		<span class="string">"女排将死磕巴西！郎平安排男陪练模仿对方核心"</span>,</span><br><span class="line">		<span class="string">"没有中国选手和巨星的110米栏 我们还看吗？"</span>,</span><br><span class="line">		<span class="string">"中英上演奥运金牌大战"</span>,</span><br><span class="line">		<span class="string">"博彩赔率挺中国夺回第二纽约时报：中国因对手服禁药而丢失的奖牌最多"</span>,</span><br><span class="line">		<span class="string">"最“出柜”奥运？同性之爱闪耀里约"</span>,</span><br><span class="line">		<span class="string">"下跪拜谢与洪荒之力一样 都是真情流露"</span></span><br><span class="line">	]</span><br><span class="line">	<span class="keyword">var</span> data = [];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">3</span>; i++)&#123;</span><br><span class="line">		<span class="keyword">var</span> index = <span class="built_in">parseInt</span>(<span class="built_in">Math</span>.random()*news.length);</span><br><span class="line">		data.push(news[index]);</span><br><span class="line">		news.splice(index, <span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> cb = req.query.callback;</span><br><span class="line">	<span class="keyword">if</span>(cb)&#123;</span><br><span class="line">		res.send(cb + <span class="string">'('</span>+ <span class="built_in">JSON</span>.stringify(data) + <span class="string">')'</span>);</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		res.send(data);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<ol>
-<li>CORS</li>
-</ol>
-<p><code>CORS</code>是跨源资源分享（Cross-Origin Resource Sharing）的缩写。它是W3C标准，是跨源AJAX请求的根本解决方法。相比JSONP只能发<code>GET</code>请求，CORS允许任何类型的请求。CORS需要浏览器和服务器同时支持。目前，所有浏览器都支持该功能，IE浏览器不能低于IE10。</p>
-<p>浏览器将CORS请求分成两类：简单请求（simple request）和非简单请求（not-so-simple request）。<br>只要同时满足以下两大条件，就属于简单请求。</p>
-<pre><code>(1) 请求方法是以下三种方法之一：
-- HEAD
-- GET
-- POST
-（2）HTTP的头信息不超出以下几种字段：
-- Accept
-- Accept-Language
-- Content-Language
-- Last-Event-ID
-- Content-Type：只限于三个值application/x-www-form-urlencoded、multipart/form-data、text/plain
-</code></pre><p>凡是不同时满足上面两个条件，就属于非简单请求。<br>浏览器对这两种请求的处理，是不一样的。</p>
-<ul>
-<li>简单请求<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">xhr.open(<span class="string">'get'</span>, <span class="string">'http://b.hth:8080/getNews'</span>, <span class="literal">true</span>);</span><br><span class="line">xhr.send();</span><br><span class="line"><span class="comment">//xhr.open的传的url为绝对路径，也就是你要跨域访问的接口地址</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>服务器端：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">res.header(<span class="string">"Access-Control-Allow-Origin"</span>, <span class="string">"http://a.hth:8080"</span>); </span><br><span class="line"><span class="comment">//指定可以请求数据的域名为http://a.hth:8080</span></span><br></pre></td></tr></table></figure></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/3786979-db6427e1d52ac4f9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<ul>
-<li>非简单请求</li>
-</ul>
-<p>非简单请求是那种对服务器有特殊要求的请求，比如请求方法是<code>PUT</code>或<code>DELETE</code>，或者<code>Content-Type</code>字段的类型是<code>application/json</code>。</p>
-<p>非简单请求的CORS请求，会在正式通信之前，增加一次HTTP查询请求，称为”预检”请求（preflight）。</p>
-<p>浏览器先询问服务器，当前网页所在的域名是否在服务器的许可名单之中，以及可以使用哪些HTTP动词和头信息字段。只有得到肯定答复，浏览器才会发出正式的<code>XMLHttpRequest</code>请求，否则就报错。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> url = <span class="string">'http://api.alice.com/cors'</span>;</span><br><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">xhr.open(<span class="string">'PUT'</span>, url, <span class="literal">true</span>);</span><br><span class="line">xhr.setRequestHeader(<span class="string">'X-Custom-Header'</span>, <span class="string">'value'</span>);</span><br><span class="line">xhr.send();</span><br></pre></td></tr></table></figure>
-<p>上面代码中，HTTP请求的方法是<code>PUT</code>，并且发送一个自定义头信息<code>X-Custom-Header</code>。</p>
-<p>下面设置请求回应设置http的头部<code>Access-Control-Allow-Origin</code>为<code>*</code>,表示同意任意跨源请求。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">res.header(<span class="string">"Access-Control-Allow-Origin"</span>, <span class="string">"*"</span>);</span><br></pre></td></tr></table></figure></p>
-<h2 id="iframe"><a href="#iframe" class="headerlink" title="iframe"></a>iframe</h2><p>如果两个网页不同源，就无法拿到对方的DOM。典型的例子是<code>iframe</code>窗口和<code>window.open</code>方法打开的窗口，它们与父窗口无法通信。</p>
-<ul>
-<li>降域：<br>如果两个窗口一级域名相同，只是二级域名不同，那么设置上一节介绍的<code>document.domain</code>属性，就可以规避同源政策，拿到DOM。</li>
-<li>window.postMessage<br>HTML5为了解决这个问题，引入了一个全新的API：跨文档通信 API<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.frames[<span class="number">0</span>].postMessage(<span class="keyword">this</span>.value,<span class="string">'*'</span>);<span class="comment">//发送消息</span></span><br><span class="line"><span class="built_in">window</span>.parent.postMessage(<span class="keyword">this</span>.value, <span class="string">'*'</span>);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>参考链接：</p>
-<ul>
-<li><a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="noopener">跨域资源共享 CORS 详解(阮一峰)</a></li>
-<li><a href="https://segmentfault.com/a/1190000000718840#articleHeader4" target="_blank" rel="noopener">详解js跨域问题</a></li>
-<li><a href="http://www.ruanyifeng.com/blog/2016/04/same-origin-policy.html" target="_blank" rel="noopener">浏览器同源政策及其规避方法</a></li>
-</ul>
-
           
+浏览器安全的基石是”同源政策”。所谓”同源”指的是”三个相同”。
+
+协议相同
+域名相同
+端口相同
+
+同源政策的目的，是为了保证用户信息的安全，防止恶意的网站窃取数据。虽然这些限制是必要的，但是有时很不方便，合理的用途也受到影响。所以引出跨域的几种解决方式。如有错误请指正。
+首先对于ajax的请求不能发送：
+JSONP
+CROS
+
+
+JSONP
+
+JSONP是服务器与客户端跨源通信的常用方法。最大
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/01/09/对跨域的解决方式/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -669,32 +572,18 @@ test2.sayHi();
       
         
           
-            <h1 id="What’s-this"><a href="#What’s-this" class="headerlink" title="What’s this?"></a>What’s this?</h1><p>由于运行期绑定的特性，JavaScript 中的 <code>this</code> 含义非常多，它可以是全局对象、当前对象或者任意对象，这完全取决于函数的调用方式</p>
-<p>随着函数使用场合的不同，this的值会发生变化。但是有一个总的原则，那就是this指的是，调用函数的那个对象</p>
-<h2 id="作为函数调用"><a href="#作为函数调用" class="headerlink" title="作为函数调用"></a>作为函数调用</h2><p>在函数被直接调用时this绑定到全局对象。在浏览器中，window 就是该全局对象</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="keyword">this</span>);  <span class="comment">//Window</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">fn2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn1();  <span class="comment">//Window</span></span><br></pre></td></tr></table></figure>
-<h2 id="嵌套调用"><a href="#嵌套调用" class="headerlink" title="嵌套调用"></a>嵌套调用</h2><p>函数嵌套产生的内部函数的<code>this</code>不是其父函数，仍然是全局变量</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="keyword">this</span>);  <span class="comment">//Window</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">fn2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    fn2()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn1();  <span class="comment">//Window</span></span><br></pre></td></tr></table></figure>
-<h2 id="setTimeout、setInterval"><a href="#setTimeout、setInterval" class="headerlink" title="setTimeout、setInterval"></a>setTimeout、setInterval</h2><p>获取document：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">  <span class="keyword">var</span> _this = <span class="keyword">this</span>;</span><br><span class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(_this);</span><br><span class="line">  &#125;, <span class="number">200</span>);</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
-<h2 id="作为对象方法调用"><a href="#作为对象方法调用" class="headerlink" title="作为对象方法调用"></a>作为对象方法调用</h2><p>在 JavaScript 中，函数也是对象，因此函数可以作为一个对象的属性，此时该函数被称为该对象的方法，在使用这种调用方式时，this 被自然绑定到该对象</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj1 = &#123;</span><br><span class="line">    name: <span class="string">'Byron'</span>,</span><br><span class="line">    fn : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">obj1.fn();<span class="comment">//Object &#123;name: "Byron", fn: function&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fn2 = obj1.fn;</span><br><span class="line"></span><br><span class="line">fn2(); <span class="comment">//window，相当于window.fn2()</span></span><br></pre></td></tr></table></figure>
-<h2 id="Function-prototype-bind"><a href="#Function-prototype-bind" class="headerlink" title="Function.prototype.bind"></a>Function.prototype.bind</h2><p>bind，返回一个新函数，并且使函数内部的this为传入的第一个参数</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">  &#125;.bind(<span class="keyword">this</span>), <span class="number">200</span>);</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
-<h2 id="使用call和apply设置this"><a href="#使用call和apply设置this" class="headerlink" title="使用call和apply设置this"></a>使用call和apply设置this</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> value = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">	value: <span class="number">200</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.value + a + b)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn(<span class="number">3</span>,<span class="number">4</span>)	<span class="comment">//107</span></span><br><span class="line"></span><br><span class="line">fn.call(obj,<span class="number">3</span>,<span class="number">4</span>)	<span class="comment">//207</span></span><br><span class="line">fn.apply(obj, [<span class="number">3</span>,<span class="number">4</span>])  <span class="comment">//207</span></span><br></pre></td></tr></table></figure>
-<p>得到一个数组的最大值<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">3</span>,<span class="number">12</span>,<span class="number">3</span>]</span><br><span class="line"><span class="built_in">console</span>.log( <span class="built_in">Math</span>.max.apply(<span class="literal">null</span>, arr) )  <span class="comment">//12</span></span><br></pre></td></tr></table></figure></p>
-<p>拼接字符串<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">joinStr</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="comment">//1.</span></span><br><span class="line">	<span class="built_in">console</span>.log( <span class="built_in">Array</span>.prototype.join.call(<span class="built_in">arguments</span>, <span class="string">'-'</span>))</span><br><span class="line">	<span class="comment">//2.</span></span><br><span class="line">	<span class="keyword">var</span> join = <span class="built_in">Array</span>.prototype.join.bind(<span class="built_in">arguments</span>);</span><br><span class="line">	<span class="built_in">console</span>.log(join(<span class="string">'-'</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">joinStr(<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>)</span><br></pre></td></tr></table></figure></p>
-<h2 id="三种变量"><a href="#三种变量" class="headerlink" title="三种变量"></a>三种变量</h2><ul>
-<li><p>实例变量：（this）类的实例才能访问到的变量</p>
-</li>
-<li><p>静态变量：（属性）直接类型对象能访问到的变量</p>
-</li>
-<li><p>私有变量：（局部变量）当前作用域内有效的变量</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ClassA</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">1</span>; <span class="comment">//私有变量，只有函数内部可以访问</span></span><br><span class="line">    <span class="keyword">this</span>.b = <span class="number">2</span>; <span class="comment">//实例变量，只有实例可以访问</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ClassA.c = <span class="number">3</span>; <span class="comment">// 静态变量，也就是属性，类型访问</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">// error</span></span><br><span class="line"><span class="built_in">console</span>.log(ClassA.b) <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(ClassA.c) <span class="comment">//3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> classa = <span class="keyword">new</span> ClassA();</span><br><span class="line"><span class="built_in">console</span>.log(classa.a);<span class="comment">//undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(classa.b);<span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(classa.c);<span class="comment">//undefined</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-
-          
+          What’s this?由于运行期绑定的特性，JavaScript 中的 this 含义非常多，它可以是全局对象、当前对象或者任意对象，这完全取决于函数的调用方式
+随着函数使用场合的不同，this的值会发生变化。但是有一个总的原则，那就是this指的是，调用函数的那个对象
+作为函数调用在函数被直接调用时this绑定到全局对象。在浏览器中，window 就是该全局对象
+123456789consol
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/01/09/What-s-this/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -812,103 +701,27 @@ test2.sayHi();
       
         
           
-            <h1 id="vim"><a href="#vim" class="headerlink" title="vim"></a>vim</h1><p>关于linux下 vimtutor 的教程总结。 </p>
-<h2 id="vim基本操作"><a href="#vim基本操作" class="headerlink" title="vim基本操作"></a>vim基本操作</h2><ul>
-<li><code>x</code>删除光标所在位置的字符</li>
-<li><code>:q!</code>不保存退出</li>
-<li><code>:wq</code>保存文件并退出</li>
-</ul>
-<ol>
-<li><p>光标在屏幕文本中的移动既可以用箭头键，也可以使用 hjkl 字母键。</p>
-<pre><code>h (左移)       j (下行)       k (上行)     l (右移)
-</code></pre></li>
-<li><p>欲进入 Vim 编辑器(从命令行提示符)，请输入：<code>vim 文件名</code> &lt;回车&gt;</p>
-</li>
-<li><p>欲退出 Vim 编辑器，请输入</p>
-<ul>
-<li><p><esc>   <code>:q!</code>  &lt;回车&gt; 放弃所有改动。</esc></p>
-</li>
-<li><p>或者输入 <esc>   <code>:wq</code>   &lt;回车&gt; 保存改动。</esc></p>
-</li>
-</ul>
-</li>
-<li><p>在正常模式下删除光标所在位置的字符，请按： <code>x</code></p>
-</li>
-<li><p>欲插入或添加文本，请输入：</p>
-<ul>
-<li><p><code>i</code>  输入欲插入文本   <esc>             在光标前插入文本</esc></p>
-</li>
-<li><p><code>A</code>  输入欲添加文本   <esc>             在一行后添加文本</esc></p>
-</li>
-</ul>
-</li>
-</ol>
-<h2 id="删除类命令"><a href="#删除类命令" class="headerlink" title="删除类命令"></a>删除类命令</h2><ol>
-<li>输入 <code>dw</code> 可以从光标处删除至一个单词的末尾。</li>
-<li>输入 <code>d$</code>从当前光标删除到行末。</li>
-<li><code>d   motion</code><ul>
-<li><code>w</code>  从当前光标当前位置直到下一个单词起始处，不包括它的第一个字符。</li>
-<li><code>e</code>  从当前光标当前位置直到单词末尾，包括最后一个字符。</li>
-<li><code>$</code>  从当前光标当前位置直到当前行末。</li>
-</ul>
-</li>
-<li><code>dd</code> 删除该行</li>
-<li><ul>
-<li><code>u</code> 撤销上一条命令</li>
-<li><code>U</code> 撤销整行的修改</li>
-<li><code>ctrl + r</code> 恢复撤销</li>
-</ul>
-</li>
-</ol>
-<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><ol>
-<li>输入 <code>r</code> 和一个字符替换光标所在位置的字符。</li>
-<li>要改变文本直到一个单词的末尾，请输入 <code>ce</code></li>
-<li>输入 <code>p</code> 将最后一次删除的内容置入光标之后。</li>
-<li>输入 <code>CTRL-G</code> 显示当前编辑文件中当前光标所在行位置以及文件状态信息。</li>
-<li>输入大写 <code>G</code> 则直接跳转到文件中的某一指定行。</li>
-<li>输入 <code>/</code> 加上一个字符串可以用以在当前文件中查找该字符串。如果您想逆向查找字符串，请使用 <code>?</code> 代替 <code>/</code> 进行。</li>
-<li>输入 <code>%</code> 可以查找配对的括号 )、]、}。</li>
-<li>输入 <code>:!</code> 然后紧接着输入一个外部命令可以执行该外部命令。</li>
-<li>要将对文件的改动保存到文件中，请输入 <code>:w FILENAME</code></li>
-<li>要保存文件的部分内容，请输入 v motion <code>:w FILENAME</code><h3 id="插入命令"><a href="#插入命令" class="headerlink" title="插入命令"></a>插入命令</h3></li>
-</ol>
-<ul>
-<li>输入 <code>o</code> 将在光标的下方打开新的一行并进入插入模式。 </li>
-<li>输入 <code>O</code> 将在光标的上方打开新的一行并进入插入模式。</li>
-<li>输入 <code>a</code> 将可在光标之后插入文本。</li>
-</ul>
-<h2 id="查找替换命令"><a href="#查找替换命令" class="headerlink" title="查找替换命令"></a>查找替换命令</h2><pre><code>输入 :set xxx 可以设置 xxx 选项。一些有用的选项如下：
-    &apos;ic&apos; &apos;ignorecase&apos;       查找时忽略字母大小写
-    &apos;is&apos; &apos;incsearch&apos;        查找短语时显示部分匹配
-    &apos;hls&apos; &apos;hlsearch&apos;        高亮显示所有的匹配短语
-选项名可以用完整版本，也可以用缩略版本
-</code></pre><ul>
-<li>输入大写的 <code>R</code> 可连续替换多个字符。</li>
-<li>在一行内替换头一个字符串 old 为新的字符串 new，请输入  <code>:s/old/new</code></li>
-<li>在一行内替换所有的字符串 old 为新的字符串 new，请输入  <code>:s/old/new/g</code></li>
-<li>在两行内替换所有的字符串 old 为新的字符串 new，请输入  <code>:#,#s/old/new/g</code></li>
-<li>在文件内替换所有的字符串 old 为新的字符串 new，请输入  <code>:%s/old/new/g</code></li>
-<li>进行全文替换时询问用户确认每个替换需添加 c 标志        <code>:%s/old/new/gc</code></li>
-</ul>
-<h2 id="复制粘贴"><a href="#复制粘贴" class="headerlink" title="复制粘贴"></a>复制粘贴</h2><ul>
-<li>着使用 <code>v</code> 进入可视模式，使用操作符 <code>y</code>复制文本，使用 <code>p</code>粘贴文本</li>
-</ul>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ol>
-<li><p>输入 :help 或者按 <f1> 键或 <help> 键可以打开帮助窗口。</help></f1></p>
-</li>
-<li><p>输入 :help cmd 可以找到关于 cmd 命令的帮助。</p>
-</li>
-<li><p>输入 CTRL-W CTRL-W  可以使您在窗口之间跳转。</p>
-</li>
-<li><p>输入 :q 以关闭帮助窗口</p>
-</li>
-<li><p>您可以创建一个 vimrc 启动脚本文件用来保存您偏好的设置。</p>
-</li>
-<li><p>当输入 : 命令时，按 CTRL-D 可以查看可能的补全结果。<br> 按 <tab> 可以使用一个补全。</tab></p>
-</li>
-</ol>
+          vim关于linux下 vimtutor 的教程总结。 
+vim基本操作
+x删除光标所在位置的字符
+:q!不保存退出
+:wq保存文件并退出
 
-          
+
+光标在屏幕文本中的移动既可以用箭头键，也可以使用 hjkl 字母键。
+h (左移)       j (下行)       k (上行)     l (右移)
+
+欲进入 Vim 编辑器(从命令行提示符)，请输入：vim 文件名 &lt;回车&gt;
+
+欲退出
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/01/09/Vim常见操作/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1026,89 +839,18 @@ test2.sayHi();
       
         
           
-            <h2 id="HTML、XML、XHTML-有什么区别"><a href="#HTML、XML、XHTML-有什么区别" class="headerlink" title="HTML、XML、XHTML 有什么区别"></a>HTML、XML、XHTML 有什么区别</h2><ul>
-<li><p>html即是超文本标记语言（Hyper Text Markup Language），是最早写网页的语言，但是由于时间早，规范不是很好，大小写混写且编码不规范；</p>
-</li>
-<li><p>xhtml即是升级版的html（Extensible Hyper Text Markup Language），对html进行了规范，编码更加严谨纯洁，也是一种过渡语言，html向xml过渡的语言；</p>
-</li>
-<li><p>xml即时可扩展标记语言（Extensible Markup Language），是一种跨平台语言，编码更自由，可以自由创建标签。</p>
-</li>
-<li><p>网页编码从html&gt;&gt;xhtml&gt;&gt;xml这个过程发展。</p>
-</li>
-</ul>
-<p>1、xhtml对比与html，xhtml文档具有良好完整的排版，体现在两方面：a、元素必须要有结束标签；b、元素必须嵌套；<br>2、对于html的元素和属性，xhtml必须小写，因为xml是严格区分大小写的;<br>3、xhtml的属性值必须在引号之中；<br>4、xhtml不支持属性最小化，什么是属性最小化了？<br>　　正确:非最小化属性(unminimized attributes)<br>　　<input checked="checked"><br>　　不正确:最小化属性(minimized attributes)<br>　　<input checked><br>5、 在xhtml中，name属性是不赞成使用的，在以后的版本中将被删除。</p>
-<h3 id="再说说为什么网页编码要从html-gt-gt-xhtml-gt-gt-xml这么发展？"><a href="#再说说为什么网页编码要从html-gt-gt-xhtml-gt-gt-xml这么发展？" class="headerlink" title="再说说为什么网页编码要从html&gt;&gt;xhtml&gt;&gt;xml这么发展？"></a>再说说为什么网页编码要从html&gt;&gt;xhtml&gt;&gt;xml这么发展？</h3><p>话说早起的网页使用html语言编写的，但是它拥有三个严重的缺点：<br>1、编码不规范，结构混乱臃肿，需要智能的终端才能很好的显示；<br>2、表现和结构混乱，不利于开发和维护；<br>3、不能使用更多的网络设备，比如手机、PDA等；<br>因此HTML需要发展才能解决这个问题，于是W3C又制定了XHTML，XHTML是HTML向XML 过度的一个桥梁。而xml是web发展的趋势。</p>
-<h2 id="怎么理解html语义化"><a href="#怎么理解html语义化" class="headerlink" title="怎么理解html语义化"></a>怎么理解html语义化</h2><h4 id="HTML语义化是什么？"><a href="#HTML语义化是什么？" class="headerlink" title="HTML语义化是什么？"></a>HTML语义化是什么？</h4><p>语义化是指根据内容的结构化（内容语义化），选择合适的标签（代码语义化），便于开发者阅读和写出更优雅的代码的同时，让浏览器的爬虫和机器很好的解析。</p>
-<h4 id="为什么要语义化？"><a href="#为什么要语义化？" class="headerlink" title="为什么要语义化？"></a>为什么要语义化？</h4><p> 语义化的含义就是用正确的标签做正确的事情，html语义化就是让页面的内容结构化，便于对浏览器、搜索引擎解析；在没有样式CSS情况下也以一种文档格式显示，并且是容易阅读的。搜索引擎的爬虫依赖于标记来确定上下文和各个关键字的权重，利于 SEO（搜索引擎优化）。使阅读源代码的人对网站更容易将网站分块，便于阅读维护理解。</p>
-<h2 id="怎样理解内容与样式分离的原则"><a href="#怎样理解内容与样式分离的原则" class="headerlink" title="怎样理解内容与样式分离的原则"></a>怎样理解内容与样式分离的原则</h2><p>写HTML的时候先不管样式，重点放在HTML的结构和语义化上，让HTML能提现页面结构或者内容,，然后进行 css 样式设置，减少 HTML 与 CSS 契合度（即内容与样式分离） ，写JS的时候，尽量不要用JS去直接操作样式，而是通过给元素添加删除class来控制样式变化（即行为分离）。</p>
-<h4 id="分离原则优点"><a href="#分离原则优点" class="headerlink" title="分离原则优点"></a>分离原则优点</h4><ul>
-<li>浏览器加载网页页面速度变快。分离原则下，大部分页面代码写在了CSS当中，页面体积容量变得更小。</li>
-<li>网页修改设计时，效率、省时。根据html标签内ID或class的标记，到CSS里找到相应的ID或class，可以快速替换指定位置的样式，不会破坏页面架构和其他部分的样式。<br>典型的应用就是网页换肤，使用相同的 html 结构，不同的 css 样式。</li>
-<li>更好地被搜索引擎收录。基于内容与样式分离的原则，html的语义化就是首要考虑的,网页中语义化的标签代码就会更加适合搜索引擎。</li>
-<li>css样式的分离，它可以根据不同的浏览器，达到显示效果的统一。保证网页架构不变形的前提下，放心在不同浏览器渲染显示样式。</li>
-</ul>
-<h2 id="有哪些常见的meta标签"><a href="#有哪些常见的meta标签" class="headerlink" title="有哪些常见的meta标签"></a>有哪些常见的meta标签</h2><h3 id="元素"><a href="#元素" class="headerlink" title="元素"></a><meta>元素</h3><blockquote>
-<p>标签提供关于HTML文档的元数据。元数据不会显示在页面上，但是对于机器是可读的。它可用于浏览器（如何显示内容或重新加载页面），搜索引擎（关键词），或其他 web 服务。 —— W3School</p>
-</blockquote>
-<h3 id="必要属性"><a href="#必要属性" class="headerlink" title="必要属性"></a>必要属性</h3><table>
-<thead>
-<tr>
-<th>属性</th>
-<th style="text-align:center">值</th>
-<th style="text-align:right">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>content</td>
-<td style="text-align:center">some text</td>
-<td style="text-align:right">定义与http-equiv或name属性相关的元信息</td>
-</tr>
-</tbody>
-</table>
-<h3 id="可选属性"><a href="#可选属性" class="headerlink" title="可选属性"></a>可选属性</h3><table>
-<thead>
-<tr>
-<th>属性</th>
-<th style="text-align:center">值</th>
-<th style="text-align:right">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>http-equiv</td>
-<td style="text-align:center">content-type / expire / refresh / set-cookie</td>
-<td style="text-align:right">把content属性关联到HTTP头部。</td>
-</tr>
-<tr>
-<td>name</td>
-<td style="text-align:center">author / description / keywords / generator / revised / others</td>
-<td style="text-align:right">把 content 属性关联到一个名称。</td>
-</tr>
-<tr>
-<td>content</td>
-<td style="text-align:center">some text</td>
-<td style="text-align:right">定义用于翻译 content 属性值的格式。</td>
-</tr>
-</tbody>
-</table>
-<p><a href="https://segmentfault.com/a/1190000002407912" target="_blank" rel="noopener">常用meta整理</a></p>
-<h2 id="文档声明的作用-严格模式和混杂模式指什么-lt-doctype-html-gt-的作用"><a href="#文档声明的作用-严格模式和混杂模式指什么-lt-doctype-html-gt-的作用" class="headerlink" title="文档声明的作用?严格模式和混杂模式指什么?&lt;!doctype html&gt; 的作用?"></a>文档声明的作用?严格模式和混杂模式指什么?&lt;!doctype html&gt; 的作用?</h2><h3 id="文档声明的作用"><a href="#文档声明的作用" class="headerlink" title="文档声明的作用?"></a>文档声明的作用?</h3><p>告诉浏览器要用什么版本的html来解析网页。</p>
-<h3 id="严格模式和混杂模式指什么"><a href="#严格模式和混杂模式指什么" class="headerlink" title="严格模式和混杂模式指什么?"></a>严格模式和混杂模式指什么?</h3><ul>
-<li>严格模式：浏览器根据规范呈现页面。</li>
-<li>混杂模式：页面以一种比较宽松的向后兼容的方式显示。通常模拟老式浏览器的行为以防止老站点无法工作<h3 id="lt-doctype-html-gt-的作用"><a href="#lt-doctype-html-gt-的作用" class="headerlink" title="&lt;!doctype html&gt; 的作用?"></a>&lt;!doctype html&gt; 的作用?</h3></li>
-<li>DTD（document type definition，文档类型定义）是一系列的语法规则， 用来定义XML或(X)HTML的文件类型。浏览器会使用它来判断文档类型， 决定使用何种协议来解析，以及切换浏览器模式。</li>
-<li>DOCTYPE是用来声明文档类型和DTD规范的，一个主要的用途便是文件的合法性验证。 如果文件代码不合法，那么浏览器解析时便会出一些差错。</li>
-</ul>
-<h2 id="浏览器乱码的原因是什么？如何解决"><a href="#浏览器乱码的原因是什么？如何解决" class="headerlink" title="浏览器乱码的原因是什么？如何解决"></a>浏览器乱码的原因是什么？如何解决</h2><p>原因：造成html网页乱码原因主要是html源代码内中文字内容与html编码不同造成。<br>解决：1.HTML 文档一定要指定字符集为utf-8，因为这个字符集包括了世界上几乎所有的文字，没有理由不用它。<meta charset="utf-8"><br>2.编辑器保存文档使用的字符集一定要跟 HTML 文档指定的字符集匹配，也就是 utf-8</p>
-<h2 id="常见的浏览器有哪些，什么内核"><a href="#常见的浏览器有哪些，什么内核" class="headerlink" title="常见的浏览器有哪些，什么内核"></a>常见的浏览器有哪些，什么内核</h2><ul>
-<li>Trident(IE内核)</li>
-<li>Gecko(Firefox内核)</li>
-<li>Presto(Opera前内核) (已废弃)；Opera现已改用Google Chrome的Blink内核。</li>
-<li>Webkit(Safari内核,Chrome内核原型,开源)。</li>
-</ul>
+          HTML、XML、XHTML 有什么区别
+html即是超文本标记语言（Hyper Text Markup Language），是最早写网页的语言，但是由于时间早，规范不是很好，大小写混写且编码不规范；
 
-          
+xhtml即是升级版的html（Extensible Hyper Text Markup Language），对html进行了规范，编码更加严谨纯洁，也是一种过渡语言，html向xml过渡的语言；
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/01/09/HTML总结/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1226,7 +968,7 @@ test2.sayHi();
       
         
           
-            <h4 id="1、form表单有什么作用？有哪些常用的input-标签，分别有什么作用？"><a href="#1、form表单有什么作用？有哪些常用的input-标签，分别有什么作用？" class="headerlink" title="1、form表单有什么作用？有哪些常用的input 标签，分别有什么作用？"></a>1、form表单有什么作用？有哪些常用的input 标签，分别有什么作用？</h4><pre><code>form表单用于提交数据，请求数据。
+          1、form表单有什么作用？有哪些常用的input 标签，分别有什么作用？form表单用于提交数据，请求数据。
 input常用标签：
     type=text：单行文本域；
     type=password：密码域；
@@ -1234,18 +976,14 @@ input常用标签：
     type=radio：单选框；
     type=option：下拉列表；
     type=textarea：多行文本域；
-    type=button：按钮；
-    type=submit：提交按钮；
-    type=reset：重置表单的信息；
-    type=file：文件上传；
-</code></pre><h4 id="2、post-和-get-方式的区别？"><a href="#2、post-和-get-方式的区别？" class="headerlink" title="2、post 和 get 方式的区别？"></a>2、post 和 get 方式的区别？</h4><ul>
-<li>get向后台发数据会把所有请求数据以key=value的形式连接到一起，组装到url上，参数是通过query传递，传递信息有限；对于post通过body传送数据，url不会发生变化，数据会传输到后台。</li>
-<li>get内容大小会受到限制， 特定浏览器和服务器会对url长度进行限制，例如IE对URL长度的限制是2083字节(2K+35)。对于其他浏览器，如Netscape、FireFox等，理论上没有长度限制，其限制取决于操作系统的支持；post传送数据量较大，但实际各个WEB服务器会规定对post提交数据大小进行限制，Apache、IIS6都有各自的配置。</li>
-<li>get常用于请求数据，post常用于向后台传数据。</li>
-<li>get安全性差，post安全性好。但get不会修改服务器的数据。<h4 id="3、在input里面，name有什么作用。"><a href="#3、在input里面，name有什么作用。" class="headerlink" title="3、在input里面，name有什么作用。"></a>3、在input里面，name有什么作用。</h4>  name是提交数据时的索引。<br>  当type=checkbox or radio时，name相同为一组。<h4 id="4、radio如何分组？"><a href="#4、radio如何分组？" class="headerlink" title="4、radio如何分组？"></a>4、radio如何分组？</h4>  input的name相同即为一组<h4 id="5、placeholder有什么作用？"><a href="#5、placeholder有什么作用？" class="headerlink" title="5、placeholder有什么作用？"></a>5、placeholder有什么作用？</h4>placeholder属性提供可描述输入字段预期值的提示信息（hint）。该提示会在输入字段为空时显示，并会在字段获得焦点时消失。适用于以下的 <input> 类型：text, search, url, telephone, email 以及 password。<h4 id="6、type-hidden的用法？"><a href="#6、type-hidden的用法？" class="headerlink" title="6、type=hidden的用法？"></a>6、type=hidden的用法？</h4>  将这个input隐藏起来，但这个input的值仍然能在提交表单的时候提交到后台。可用于验证提交的表单信息，提高安全性。</li>
-</ul>
-
-          
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/01/09/From表单/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1363,34 +1101,17 @@ input常用标签：
       
         
           
-            <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h6 id="1、在浏览器输入输入url；"><a href="#1、在浏览器输入输入url；" class="headerlink" title="1、在浏览器输入输入url；"></a>1、在浏览器输入输入url；</h6><h6 id="2、域名解析，查找对应的ip地址；"><a href="#2、域名解析，查找对应的ip地址；" class="headerlink" title="2、域名解析，查找对应的ip地址；"></a>2、域名解析，查找对应的ip地址；</h6><h6 id="3、浏览器根据-IP-地址与服务器建立-socket-连接；"><a href="#3、浏览器根据-IP-地址与服务器建立-socket-连接；" class="headerlink" title="3、浏览器根据 IP 地址与服务器建立 socket 连接；"></a>3、浏览器根据 IP 地址与服务器建立 socket 连接；</h6><h6 id="4、浏览器与服务器通信：-浏览器请求，服务器处理请求；"><a href="#4、浏览器与服务器通信：-浏览器请求，服务器处理请求；" class="headerlink" title="4、浏览器与服务器通信： 浏览器请求，服务器处理请求；"></a>4、浏览器与服务器通信： 浏览器请求，服务器处理请求；</h6><h6 id="5、浏览器与服务器断开请求"><a href="#5、浏览器与服务器断开请求" class="headerlink" title="5、浏览器与服务器断开请求"></a>5、浏览器与服务器断开请求</h6><h2 id="1、在浏览器输入url"><a href="#1、在浏览器输入url" class="headerlink" title="1、在浏览器输入url"></a>1、在浏览器输入url</h2><p>url：统一资源定位器，用于定位互联网上的资源。</p>
-<h2 id="2、域名解析查找对应的ip地址"><a href="#2、域名解析查找对应的ip地址" class="headerlink" title="2、域名解析查找对应的ip地址"></a>2、域名解析查找对应的ip地址</h2><h6 id="概念解释"><a href="#概念解释" class="headerlink" title="概念解释"></a>概念解释</h6><ul>
-<li>ip地址：IP协议为互联网上的每一个网络和每一台主机分配一个逻辑地址。IP地址如同门牌号码，通过IP地址来确定每一台主机的位置。服务器本质也就是一台主机，访问服务器也必须要知道其所对应的IP地址。</li>
-<li>域名（DN）：全称网域名称，是由一串用点分割的名字组成的internet上某一台计算机和计算机组的名称，用在数据传输时标识计算机的电子方位。因为IP地址难记忆且不易输入，所以用域名来代替纯数字的IP地址。</li>
-<li>网域名称系统（DNS）：是因特网的一项核心服务，它作为可以将  域名和IP地址相互映射的一个分布式数据库。DNS的作用就是把域名解析为相对应的IP地址。</li>
-</ul>
-<h6 id="域名解析流程"><a href="#域名解析流程" class="headerlink" title="域名解析流程"></a>域名解析流程</h6><p>1、浏览器缓存，浏览器会缓存DNS记录一段时间；<br>2、系统缓存，从hosts文件中查找是否有该域名所对应的IP；<br>3、前两个过程无法解析时，就要用到我们网络配置中的”DNS服务器地址”了。操作系统会把这个域名发送给这个LDNS，也就是本地区的域名服务器。大约80%的域名解析到这里就结束了，所以LDNS主要承担了域名的解析工作。<br>4、如果都没有找到，则向根域名服务器查找域名对应 IP，根域名服务器把请求转发到下一级。Name Server域名服务器会查询存储的域名和IP的映射关系表，在正常情况下都根据域名得到目标IP地址，连同一个TTL值返回给DNS Server域名服务器，返回该域名对应的IP和TTL值，LDNS会缓存这个域名和IP的对应关系。把解析的结果返回给用户，用户根据TTL值缓存在本地系统缓存中，域名解析过程结束。</p>
-<h2 id="建立连接"><a href="#建立连接" class="headerlink" title="建立连接"></a>建立连接</h2><p>知道了服务器的 IP 地址，下面便开始与服务器建立连接了。<br>TCP协议的三次握手：</p>
-<ul>
-<li>主机向服务器发送一个建立连接的请求（您好，我想认识您）；</li>
-<li>服务器接到请求后发送同意连接的信号（好的，很高兴认识您）；</li>
-<li>主机接到同意连接的信号后，再次向服务器发送了确认信号（我也很高兴认识您），自此，主机与服务器两者建立了连接。</li>
-</ul>
-<blockquote>
-<p>TCP 协议：三次握手的过程采用 TCP 协议，其可以保证信息传输的可靠性，三次握手过程中，若一方收不到确认信号，协议会要求<br>重新发送信号。</p>
-</blockquote>
-<h2 id="网页的请求与显示"><a href="#网页的请求与显示" class="headerlink" title="网页的请求与显示"></a>网页的请求与显示</h2><p><img src="http://upload-images.jianshu.io/upload_images/3786979-4ff9214b7e097db3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="MVC 模型(model)-视图(view)-控制器(controller).png"></p>
-<p>1、浏览器根据url生成http请求给到控制器；<br>2、从模型查找匹配控制器发来的请求返回给控制器得到数据。<br>3、控制器发送数据给视图，视图将数据组合成html文件反馈给控制器。<br>4、控制器将html文件发送给浏览器，在浏览器没有完全接受html网页前渲染、显示网页。</p>
-<h2 id="浏览器与服务器断开链接-四次挥手"><a href="#浏览器与服务器断开链接-四次挥手" class="headerlink" title="浏览器与服务器断开链接-四次挥手"></a>浏览器与服务器断开链接-四次挥手</h2><p>1、主机向服务器发送一个断开连接的请求（不早了，我该走了）；<br>2、服务器接到请求后发送确认收到请求的信号（知道了）；<br>3、服务器向主机发送断开通知（我也该走了）；<br>4、主机接到断开通知后断开连接并反馈一个确认信号（嗯，好的），服务器收到确认信号后断开连接；</p>
-<blockquote>
-<p>补充：</p>
-<ul>
-<li>为什么服务器在接到断开请求时不立即同意断开：当服务器收到断开连接的请求时，可能仍然有数据未发送完毕，所以服务器先发送确认信号，等所有数据发送完毕后再同意断开。</li>
-<li>第四次握手后，主机发送确认信号后并没有立即断开连接，而是等待了 2 个报文传送周期，原因是：如果第四次握手的确认信息丢失，服务器将会重新发送第三次握手的断开连接的信号，而服务器发觉丢包与重新发送的断开连接到达主机的时间正好为 2 个报文传输周期。</li>
-</ul>
-</blockquote>
-
-          
+          概述1、在浏览器输入输入url；2、域名解析，查找对应的ip地址；3、浏览器根据 IP 地址与服务器建立 socket 连接；4、浏览器与服务器通信： 浏览器请求，服务器处理请求；5、浏览器与服务器断开请求1、在浏览器输入urlurl：统一资源定位器，用于定位互联网上的资源。
+2、域名解析查找对应的ip地址概念解释
+ip地址：IP协议为互联网上的每一个网络和每一台主机分配一个逻辑地址。IP地址如同
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/01/09/从URL输入到页面展现发生了什么/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1508,8 +1229,15 @@ input常用标签：
       
         
           
-            <h2 id="耗时一晚上终于搞定你。"><a href="#耗时一晚上终于搞定你。" class="headerlink" title="耗时一晚上终于搞定你。"></a>耗时一晚上终于搞定你。</h2>
+          耗时一晚上终于搞定你。
           
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/01/09/hello-world/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1658,7 +1386,7 @@ input常用标签：
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
 
 
 
@@ -1757,6 +1485,13 @@ input常用标签：
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
 
   
 
